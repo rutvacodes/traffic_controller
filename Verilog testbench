@@ -1,0 +1,31 @@
+`timescale 1ns / 1ps
+module traffic_controller_tb();
+  reg clk, reset;
+  wire [2:0] m1;
+  wire [2:0] m2;
+  wire [2:0] mt;
+  wire [2:0] s;
+
+  traffic_controller dut(.clk(clk), .reset(reset), .m1(m1), .m2(m2), .mt(mt), .s(s));
+
+
+  initial begin
+    clk = 0;
+    forever #5 clk = ~clk;
+  end
+
+  initial begin
+  
+    $dumpfile("waveform.vcd");  
+    $dumpvars(0, traffic_controller_tb);
+
+
+    reset = 1;
+    #20;
+    reset = 0;
+
+    #1000;
+    $finish;
+  end
+
+endmodule
